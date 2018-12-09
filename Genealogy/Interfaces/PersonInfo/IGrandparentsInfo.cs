@@ -1,12 +1,10 @@
-﻿using Genealogy.Classes;
+﻿using Genealogy.Classes.PersonInfo;
 
 namespace Genealogy.Interfaces.PersonInfo
 {
-    public interface IGrandparentsInfo
+    public interface IGrandparentsInfo // Plural
     {
-        Person MaternalGrandfather { get; set; }
-        Person MaternalGrandmother { get; set; }
-        Person PaternalGrandfather { get; set; }
-        Person PaternalGrandmother { get; set; }
+        GrandparentInfo Grandfather  { get; set; }
+        GrandparentInfo Grandmother { get; set; }
     }
 }
