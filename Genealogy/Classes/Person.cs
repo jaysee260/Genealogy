@@ -1,8 +1,9 @@
-﻿using Genealogy.Classes.PersonInfo;
+﻿using Genealogy.Classes.Abstract;
+using Genealogy.Classes.PersonInfo;
 using Genealogy.Enums.Person;
 using Genealogy.Interfaces;
 using System;
-using Genealogy.Classes.Abstract;
+using System.Linq;
 
 namespace Genealogy.Classes
 {
@@ -14,9 +15,46 @@ namespace Genealogy.Classes
         public Sex Sex { get; set; }
         public DateTime? DateOfDeath { get; set; }
 
+        public Person()
+        {
+            //Name = null;
+            //Birth = null;
+            //Relations = null;
+            //Sex = Sex.M;
+            //DateOfDeath = null;
+        }
+
+        public Person(NameInfo nameInfo, BirthInfo birthInfo, Sex sex, DateTime? dateOfDeath = null)
+        {
+            Name = nameInfo;
+            Birth = birthInfo;
+            Sex = sex;
+            DateOfDeath = dateOfDeath;
+        }
+
+        public Person(NameInfo nameInfo, BirthInfo birthInfo, Sex sex, DateTime? dateOfDeath, RelationsInfo relationsInfo)
+                : this(nameInfo, birthInfo, sex, dateOfDeath)
+        {
+            Relations = relationsInfo;
+        }
+
         public bool IsAlive()
         {
             return DateOfDeath == null ? true : false; 
+        }
+
+        public string GetFullLegalName()
+        {
+            var possibleMiddleName = Name.Middle == null ? "" : $"{Name.Middle} ";
+            var possibleMaidenName = Name.Maiden == null ? "" : $" {Name.Maiden}";
+            return $"{Name.First} {possibleMiddleName}{Name.Last}{possibleMaidenName}";
+        }
+
+        public string GetFullCasualName()
+        {
+            string md = Name.Middle;
+            string possibleMiddleInitial = md.Equals(string.Empty) || md == null ? " " : $" {Name.Middle.First()}. ";
+            return $"{Name.First}{possibleMiddleInitial}{Name.Last}";
         }
 
         public byte GetAge()
@@ -36,7 +74,8 @@ namespace Genealogy.Classes
 
         public bool HasSiblings()
         {
-            return Relations.Siblings.Count > 0 ? true : false;
+            var siblingsCount = Relations.Siblings.Brothers.Count + Relations.Siblings.Sisters.Count;
+            return siblingsCount > 0 ? true : false;
         }
 
     }

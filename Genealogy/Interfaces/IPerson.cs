@@ -13,6 +13,8 @@ namespace Genealogy.Interfaces
         DateTime? DateOfDeath { get; set; }
 
         bool IsAlive();
+        string GetFullLegalName();
+        string GetFullCasualName();
         byte GetAge();
         DateTime GetBirthDate();
         bool IsMarried();
