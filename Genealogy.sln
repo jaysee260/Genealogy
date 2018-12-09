@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genealogy", "Genealogy\Genealogy.csproj", "{C4B75ACE-C005-4D3D-B7C0-34014CAA02AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genealogy", "Genealogy\Genealogy.csproj", "{C4B75ACE-C005-4D3D-B7C0-34014CAA02AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{163FB9B3-5D1E-42C5-B756-907F78E70E31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{30AD32E5-B0CE-4FF3-9C77-46C284F8BD4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{163FB9B3-5D1E-42C5-B756-907F78E70E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{163FB9B3-5D1E-42C5-B756-907F78E70E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{163FB9B3-5D1E-42C5-B756-907F78E70E31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30AD32E5-B0CE-4FF3-9C77-46C284F8BD4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30AD32E5-B0CE-4FF3-9C77-46C284F8BD4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30AD32E5-B0CE-4FF3-9C77-46C284F8BD4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30AD32E5-B0CE-4FF3-9C77-46C284F8BD4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
