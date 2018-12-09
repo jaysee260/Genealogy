@@ -3,7 +3,6 @@ using Genealogy.Classes.PersonInfo;
 using Genealogy.Enums.Person;
 using Genealogy.Interfaces;
 using System;
-using System.Linq;
 
 namespace Genealogy.Classes
 {
@@ -24,7 +23,7 @@ namespace Genealogy.Classes
             //DateOfDeath = null;
         }
 
-        public Person(NameInfo nameInfo, BirthInfo birthInfo, Sex sex, DateTime? dateOfDeath = null)
+        public Person(NameInfo nameInfo, BirthInfo birthInfo, Sex sex, DateTime? dateOfDeath)
         {
             Name = nameInfo;
             Birth = birthInfo;
@@ -40,21 +39,17 @@ namespace Genealogy.Classes
 
         public bool IsAlive()
         {
-            return DateOfDeath == null ? true : false; 
+            return base.CheckIfIsAlive(DateOfDeath);
         }
 
         public string GetFullLegalName()
         {
-            var possibleMiddleName = Name.Middle == null ? "" : $"{Name.Middle} ";
-            var possibleMaidenName = Name.Maiden == null ? "" : $" {Name.Maiden}";
-            return $"{Name.First} {possibleMiddleName}{Name.Last}{possibleMaidenName}";
+            return base.ComposeFullLegalName(Name.First, Name.Middle, Name.Last, Name.Maiden);
         }
 
         public string GetFullCasualName()
         {
-            string md = Name.Middle;
-            string possibleMiddleInitial = md.Equals(string.Empty) || md == null ? " " : $" {Name.Middle.First()}. ";
-            return $"{Name.First}{possibleMiddleInitial}{Name.Last}";
+            return base.ComposeFullCasualName(Name.First, Name.Middle, Name.Last);
         }
 
         public byte GetAge()
@@ -64,18 +59,17 @@ namespace Genealogy.Classes
 
         public DateTime GetBirthDate()
         {
-            return new DateTime(Birth.Year, Birth.Month, Birth.Day);
+            return base.ComposeBirthDate(Birth.Year, Birth.Month, Birth.Day);
         }
 
         public bool IsMarried()
         {
-            return Relations.Spouse == null ? false : true;
+            return base.CheckIfIsMarried(Relations.Spouse);
         }
 
         public bool HasSiblings()
         {
-            var siblingsCount = Relations.Siblings.Brothers.Count + Relations.Siblings.Sisters.Count;
-            return siblingsCount > 0 ? true : false;
+            return base.CheckIfHasSiblings(Relations.Siblings);
         }
 
     }
