@@ -31,8 +31,7 @@ namespace Genealogy.Classes
 
         public bool IsMarried()
         {
-            
-            return Relations.Spouse != null ? true : false;
+            return Relations.Spouse == null ? false : true;
         }
 
         public bool HasSiblings()
