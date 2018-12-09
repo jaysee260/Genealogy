@@ -8,12 +8,14 @@ namespace Genealogy.Classes
 {
     public class Person : PersonUtilityMethods, IPerson
     {
+        // Properties
         public NameInfo Name { get; set; }
         public BirthInfo Birth { get; set; }
         public RelationsInfo Relations { get; set; }
         public Sex Sex { get; set; }
         public DateTime? DateOfDeath { get; set; }
 
+        // Constructors
         public Person()
         {
             //Name = null;
@@ -37,6 +39,7 @@ namespace Genealogy.Classes
             Relations = relationsInfo;
         }
 
+        // Methods
         public bool IsAlive()
         {
             return base.CheckIfIsAlive(DateOfDeath);
