@@ -1,12 +1,13 @@
-﻿using Genealogy.Classes.Abstract;
-using Genealogy.Classes.PersonInfo;
+﻿using Genealogy.Classes.PersonInfo;
 using Genealogy.Enums.Person;
 using Genealogy.Interfaces;
 using System;
+using System.Linq;
+using static System.String;
 
 namespace Genealogy.Classes
 {
-    public class Person : PersonUtilityMethods, IPerson
+    public class Person : IPerson
     {
         // Properties
         public NameInfo Name { get; set; }
@@ -18,11 +19,11 @@ namespace Genealogy.Classes
         // Constructors
         public Person()
         {
-            //Name = null;
-            //Birth = null;
-            //Relations = null;
-            //Sex = Sex.M;
-            //DateOfDeath = null;
+            Name = null;
+            Birth = null;
+            Relations = null;
+            Sex = 0;
+            DateOfDeath = null;
         }
 
         public Person(NameInfo nameInfo, BirthInfo birthInfo, Sex sex, DateTime? dateOfDeath)
@@ -42,37 +43,44 @@ namespace Genealogy.Classes
         // Methods
         public bool IsAlive()
         {
-            return base.CheckIfIsAlive(DateOfDeath);
+            return DateOfDeath == null ? true : false;
         }
 
         public string GetFullLegalName()
         {
-            return base.ComposeFullLegalName(Name.First, Name.Middle, Name.Last, Name.Maiden);
+            // leave the whitespaces
+            var possibleMiddleName = IsNullOrWhiteSpace(Name.Middle) ? " " : $" {Name.Middle} ";
+            var possibleMaidenName = IsNullOrWhiteSpace(Name.Maiden) ? "" : $" {Name.Maiden}";
+            return $"{Name.First}{possibleMiddleName}{Name.Last}{possibleMaidenName}";
         }
 
         public string GetFullCasualName()
         {
-            return base.ComposeFullCasualName(Name.First, Name.Middle, Name.Last);
+            var possibleMiddleInitial = IsNullOrWhiteSpace(Name.Middle) ? " " : $" {Name.Middle.First()}. ";
+            return $"{Name.First}{possibleMiddleInitial}{Name.Last}";
         }
 
         public byte GetAge()
         {
-            return base.CalculateAge(Birth.Year, Birth.Month, Birth.Day);
+            DateTime Dob = Convert.ToDateTime($"{Birth.Year}/{Birth.Month}/{Birth.Day}");
+            var Age = (byte)(new DateTime(DateTime.Now.Subtract(Dob).Ticks).Year - 1);
+            return Age;
         }
 
         public DateTime GetBirthDate()
         {
-            return base.ComposeBirthDate(Birth.Year, Birth.Month, Birth.Day);
+            return new DateTime(Birth.Year, Birth.Month, Birth.Day);
         }
 
         public bool IsMarried()
         {
-            return base.CheckIfIsMarried(Relations.Spouse);
+            return Relations.Spouse == null ? false : true;
         }
 
         public bool HasSiblings()
         {
-            return base.CheckIfHasSiblings(Relations.Siblings);
+            var count = Relations.Siblings.Brothers.Count + Relations.Siblings.Sisters.Count;
+            return count > 0 ? true : false;
         }
 
     }

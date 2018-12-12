@@ -17,7 +17,5 @@ namespace Genealogy.Interfaces
         string GetFullCasualName();
         byte GetAge();
         DateTime GetBirthDate();
-        bool IsMarried();
-        bool HasSiblings();
     }
 }
